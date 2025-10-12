@@ -1,0 +1,18 @@
+{
+  "type": "witchhats:add_witchhat_to_witches",
+  "conditions": [
+    {
+      "condition": "minecraft:random_chance",
+      "chance": 0.1
+    },
+    {
+      "condition": "minecraft:entity_properties",
+      "entity": "this",
+      "predicate": {
+        "type": "minecraft:witch"
+      }
+    }
+  ],
+  "item": "witchhats:witchhat",
+  "count": 1
+}
