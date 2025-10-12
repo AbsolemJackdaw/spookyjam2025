@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "absolemjackdaw.mod.WitchHat"
+      "absolemjackdaw.mod.Scryers"
     ],
     "client": [
     ]

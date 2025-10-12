@@ -1,6 +1,6 @@
 package absolemjackdaw.loot;
 
-import absolemjackdaw.mod.WitchHatCommon;
+import absolemjackdaw.mod.ScryersCommon;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -17,23 +17,23 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.function.Supplier;
 
-public class WitchHatLootModifiers extends LootModifier {
+public class ScryerLootModifiers extends LootModifier {
 
     private final Item item;
     private final int count;
-    public static final MapCodec<WitchHatLootModifiers> CODEC = RecordCodecBuilder.mapCodec(inst ->
+    public static final MapCodec<ScryerLootModifiers> CODEC = RecordCodecBuilder.mapCodec(inst ->
             LootModifier.codecStart(inst).and(inst.group(
                             BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter(o -> o.item),
                             Codec.INT.fieldOf("count").forGetter(o -> o.count)))
-                    .apply(inst, WitchHatLootModifiers::new));
+                    .apply(inst, ScryerLootModifiers::new));
 
     public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLOBAL_LOOTMODIFIERS =
-            DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, WitchHatCommon.MODID);
+            DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, ScryersCommon.MODID);
 
-    public static final Supplier<MapCodec<WitchHatLootModifiers>> ADD_HAT_TO_WITCH =
+    public static final Supplier<MapCodec<ScryerLootModifiers>> ADD_HAT_TO_WITCH =
             GLOBAL_LOOTMODIFIERS.register("add_witchhat_to_witches", () -> CODEC);
 
-    public WitchHatLootModifiers(LootItemCondition[] conditionsIn, Item item, int count) {
+    public ScryerLootModifiers(LootItemCondition[] conditionsIn, Item item, int count) {
         super(conditionsIn);
         this.item = item;
         this.count = count;

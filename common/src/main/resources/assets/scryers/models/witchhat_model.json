@@ -2,8 +2,8 @@
   "format_version": "1.21.6",
   "credit": "Made with Blockbench",
   "textures": {
-    "texture": "witchhats:item/witchhat_model",
-    "particle": "witchhats:item/witchhat_model"
+    "texture": "scryers:item/witchhat_model",
+    "particle": "scryers:item/witchhat_model"
   },
   "elements": [
     {
