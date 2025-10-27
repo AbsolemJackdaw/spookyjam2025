@@ -10,6 +10,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.SkullBlock;
 
@@ -30,5 +31,9 @@ public class ScryersCommon {
         if (isWitch(p) && p.getOffhandItem().getItem() instanceof BlockItem item && item.getBlock() instanceof AbstractSkullBlock block)
             return block.getType();
         return () -> "empty";
+    }
+
+    public static boolean isScryer(Player player) {
+        return player.getOffhandItem().getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof AbstractSkullBlock && player.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(ITEM_NEW_HAT);
     }
 }

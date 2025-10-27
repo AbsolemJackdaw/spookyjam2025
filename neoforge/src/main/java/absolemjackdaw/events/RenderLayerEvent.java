@@ -1,18 +1,31 @@
 package absolemjackdaw.events;
 
 import absolemjackdaw.mod.ScryersCommon;
+import absolemjackdaw.render.SkullLayer;
+import net.minecraft.client.renderer.entity.player.PlayerRenderer;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.HumanoidArm;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Random;
 
 @EventBusSubscriber(modid = ScryersCommon.MODID)
-public class SkullParticleEvent {
+public class RenderLayerEvent {
+
 
     @SubscribeEvent
+    public static void registerRenderlayer(EntityRenderersEvent.AddLayers event) {
+        for (PlayerSkin.Model skin : event.getSkins()) {
+            if (event.getSkin(skin) instanceof PlayerRenderer playerRenderer) {
+                playerRenderer.addLayer(new SkullLayer(playerRenderer, event.getEntityModels()));
+            }
+        }
+    }
+
     public static void holdSkullEvent(PlayerTickEvent.Post event) {
         var player = event.getEntity();
         var level = player.level();
