@@ -1,6 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
+    id 'net.darkhax.curseforgegradle' version '1.0.11'
 }
 
 neoForge {
@@ -23,7 +24,7 @@ neoForge {
             client()
         }
         data {
-            clientData()
+            data()
 
             // DataGen can be run by - "./gradlew :neoforge:runData" in Terminal.
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
@@ -41,3 +42,17 @@ neoForge {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+
+    apiToken = findProperty('cf_api_token')
+    // The main file to upload
+    def mainFile = upload(1373587, jar)
+//    def mainFile = upload(532595, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    mainFile.displayName = "Scryers-neo-${minecraft_version}-${version}"
+    mainFile.releaseType = "${releasetype}"
+    mainFile.changelog = "${changelog}"
+    mainFile.changelogType = 'markdown'
+    mainFile.addGameVersion("${minecraft_version}")
+    mainFile.addGameVersion("neoforge")
+}

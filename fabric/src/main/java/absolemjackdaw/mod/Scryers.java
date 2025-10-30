@@ -18,19 +18,15 @@ public class Scryers implements ModInitializer {
         var witchTable = EntityType.WITCH.getDefaultLootTable();
 
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
-            witchTable.ifPresent(table -> {
-                BuiltInRegistries.ITEM.get(ScryersCommon.ITEM_KEY).ifPresent(itemReference -> {
-                    if (table.equals(key) && source.isBuiltin()) {
-                        var pool = LootPool.lootPool()
-                                .add(LootItem.lootTableItem(itemReference.value()))
-                                .setRolls(ConstantValue.exactly(1))
-                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
-                                .when(LootItemRandomChanceCondition.randomChance(0.1f));
-
-                        tableBuilder.pool(pool.build());
-                    }
-                });
-            });
+            var itemReference = BuiltInRegistries.ITEM.get(ScryersCommon.ITEM_HAT_KEY).asItem();
+            if (witchTable.equals(key) && source.isBuiltin()) {
+                var pool = LootPool.lootPool()
+                        .add(LootItem.lootTableItem(itemReference))
+                        .setRolls(ConstantValue.exactly(1))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                        .when(LootItemRandomChanceCondition.randomChance(0.1f));
+                tableBuilder.pool(pool.build());
+            }
         });
     }
 }

@@ -2,6 +2,7 @@ package absolemjackdaw.events;
 
 import absolemjackdaw.mod.ScryersCommon;
 import absolemjackdaw.render.SkullLayer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.particles.ParticleTypes;
@@ -19,9 +20,9 @@ public class RenderLayerEvent {
 
     @SubscribeEvent
     public static void registerRenderlayer(EntityRenderersEvent.AddLayers event) {
-        for (PlayerSkin.Model skin : event.getSkins()) {
-            if (event.getSkin(skin) instanceof PlayerRenderer playerRenderer) {
-                playerRenderer.addLayer(new SkullLayer(playerRenderer, event.getEntityModels()));
+        for (PlayerSkin.Model model : event.getSkins()) {
+            if (event.getSkin(model) instanceof PlayerRenderer playerRenderer) {
+                playerRenderer.addLayer(new SkullLayer<>(event.getSkin(model)));
             }
         }
     }

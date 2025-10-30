@@ -1,6 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'fabric-loom'
+    id 'net.darkhax.curseforgegradle' version '1.0.11'
 }
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
@@ -34,4 +35,18 @@ loom {
             runDir('runs/server')
         }
     }
+}
+
+tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+
+    apiToken = findProperty('cf_api_token')
+    // The main file to upload
+    def mainFile = upload(1373587, jar)
+//    def mainFile = upload(532595, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    mainFile.displayName = "Scryers-fabric-${minecraft_version}-${version}"
+    mainFile.releaseType = "${releasetype}"
+    mainFile.changelog = "${changelog}"
+    mainFile.changelogType = 'markdown'
+    mainFile.addGameVersion("${minecraft_version}")
+    mainFile.addGameVersion("fabric")
 }
