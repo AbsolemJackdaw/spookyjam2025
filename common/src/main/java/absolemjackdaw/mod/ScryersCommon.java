@@ -27,7 +27,7 @@ public class ScryersCommon {
     public static final HatWrapper ITEM_NEW_HAT = new HatWrapper(new Item.Properties().stacksTo(1).durability(500));
 
     public static boolean isWitch(Player player) {
-        return player.getOffhandItem().getItem() instanceof BlockItem item && item.getBlock() instanceof AbstractSkullBlock && player.getItemBySlot(EquipmentSlot.HEAD).getItem() instanceof HatWrapper;
+        return player.getOffhandItem().getItem() instanceof BlockItem item && item.getBlock() instanceof AbstractSkullBlock && player.getItemBySlot(EquipmentSlot.HEAD).is(ITEM_NEW_HAT);
     }
 
     public static SkullBlock.Type getWitchType(Player p) {
@@ -37,6 +37,6 @@ public class ScryersCommon {
     }
 
     public static boolean isScryer(Player player) {
-        return player.getOffhandItem().getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof AbstractSkullBlock && player.getItemBySlot(EquipmentSlot.HEAD).getItem().equals(ITEM_NEW_HAT);
+        return player.getOffhandItem().getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof AbstractSkullBlock && player.getItemBySlot(EquipmentSlot.HEAD).is(ITEM_NEW_HAT);
     }
 }
