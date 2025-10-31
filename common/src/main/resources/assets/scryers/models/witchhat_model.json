@@ -322,7 +322,7 @@
         11.5
       ],
       "rotation": {
-        "angle": 3,
+        "angle": 0,
         "axis": "z",
         "origin": [
           10.75,
@@ -400,7 +400,7 @@
         10
       ],
       "rotation": {
-        "angle": 7,
+        "angle": 0,
         "axis": "z",
         "origin": [
           8.75,
@@ -478,7 +478,7 @@
         9.25
       ],
       "rotation": {
-        "angle": 18,
+        "angle": 22.5,
         "axis": "z",
         "origin": [
           7.25,
