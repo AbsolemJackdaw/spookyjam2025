@@ -18,11 +18,11 @@ public class ScryersCommon {
     public static final String ENTITY_MINION = "witch_minion";
     public static final String ITEM_HAT_NAME = "witchhat";
     public static final String CRYSTAL_BALL_NAME = "crystal_ball";
-    public static final ResourceKey<Item> ITEM_HAT_KEY = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MODID, ITEM_HAT_NAME));
-    public static final ResourceKey<Item> ITEM_BALL_KEY = ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(MODID, CRYSTAL_BALL_NAME));
+    public static final ResourceKey<Item> ITEM_HAT_KEY = ResourceKey.create(Registries.ITEM, id(ITEM_HAT_NAME));
+    public static final ResourceKey<Item> ITEM_BALL_KEY = ResourceKey.create(Registries.ITEM, id(CRYSTAL_BALL_NAME));
 
-    public static final ResourceKey<EntityType<?>> ENTITY_MINION_KEY = ResourceKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(MODID, "minion"));
-    public static final ResourceKey<Block> BLOCK_KEY = ResourceKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(MODID, CRYSTAL_BALL_NAME));
+    public static final ResourceKey<EntityType<?>> ENTITY_MINION_KEY = ResourceKey.create(Registries.ENTITY_TYPE, id("minion"));
+    public static final ResourceKey<Block> BLOCK_KEY = ResourceKey.create(Registries.BLOCK, id(CRYSTAL_BALL_NAME));
 
     public static final HatWrapper ITEM_NEW_HAT = new HatWrapper(new Item.Properties().stacksTo(1).durability(500));
 
@@ -38,5 +38,9 @@ public class ScryersCommon {
 
     public static boolean isScryer(Player player) {
         return player.getOffhandItem().getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof AbstractSkullBlock && player.getItemBySlot(EquipmentSlot.HEAD).is(ITEM_NEW_HAT);
+    }
+
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MODID, path);
     }
 }

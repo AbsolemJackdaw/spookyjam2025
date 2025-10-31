@@ -2,7 +2,6 @@ package absolemjackdaw.events;
 
 import absolemjackdaw.mod.ScryersCommon;
 import absolemjackdaw.render.SkullLayer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.particles.ParticleTypes;
@@ -14,7 +13,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Random;
 
-@EventBusSubscriber(modid = ScryersCommon.MODID)
+@EventBusSubscriber
 public class RenderLayerEvent {
 
 
