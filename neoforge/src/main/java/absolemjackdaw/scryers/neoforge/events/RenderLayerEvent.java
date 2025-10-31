@@ -1,11 +1,12 @@
-package absolemjackdaw.events;
+package absolemjackdaw.scryers.neoforge.events;
 
-import absolemjackdaw.mod.ScryersCommon;
-import absolemjackdaw.render.SkullLayer;
+import absolemjackdaw.scryers.Scryers;
+import absolemjackdaw.scryers.render.SkullLayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.HumanoidArm;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
@@ -13,9 +14,8 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Random;
 
-@EventBusSubscriber
+@EventBusSubscriber(Dist.CLIENT)
 public class RenderLayerEvent {
-
 
     @SubscribeEvent
     public static void registerRenderlayer(EntityRenderersEvent.AddLayers event) {
@@ -29,7 +29,7 @@ public class RenderLayerEvent {
     public static void holdSkullEvent(PlayerTickEvent.Post event) {
         var player = event.getEntity();
         var level = player.level();
-        if (!ScryersCommon.isWitch(player))
+        if (!Scryers.isWitch(player))
             return;
 
         if (level.isClientSide() && new Random().nextInt(10) == 0) {

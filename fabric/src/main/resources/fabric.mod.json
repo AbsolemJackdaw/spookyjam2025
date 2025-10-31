@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "absolemjackdaw.mod.Scryers"
+      "absolemjackdaw.scryers.fabric.ScryersFabric"
     ],
     "client": [
     ]
@@ -29,10 +29,10 @@
     "fabricloader": ">=${fabric_loader_version}",
     "fabric-api": "*",
     "minecraft": "~${minecraft_version}",
-    "java": ">=${java_version}"
+    "java": ">=${java_version}",
+    "sparkweave": ">=${sparkweave_version}"
   },
   "suggests": {
     "another-mod": "*"
   }
 }
-  

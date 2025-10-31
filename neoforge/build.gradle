@@ -59,4 +59,6 @@ tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurs
     mainFile.changelogType = 'markdown'
     mainFile.addGameVersion("${minecraft_version}")
     mainFile.addGameVersion("neoforge")
+
+    mainFile.addRequirement("sparkweave")
 }

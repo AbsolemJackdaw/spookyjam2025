@@ -1,4 +1,4 @@
-package absolemjackdaw.playerdata;
+package absolemjackdaw.scryers.playerdata;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;

@@ -1,6 +1,6 @@
-package absolemjackdaw.loot;
+package absolemjackdaw.scryers.neoforge.loot;
 
-import absolemjackdaw.mod.ScryersCommon;
+import absolemjackdaw.scryers.Scryers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -28,7 +28,7 @@ public class ScryerLootModifiers extends LootModifier {
                     .apply(inst, ScryerLootModifiers::new));
 
     public static final DeferredRegister<MapCodec<? extends IGlobalLootModifier>> GLOBAL_LOOTMODIFIERS =
-            DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, ScryersCommon.MODID);
+            DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, Scryers.MODID);
 
     public static final Supplier<MapCodec<ScryerLootModifiers>> ADD_HAT_TO_WITCH =
             GLOBAL_LOOTMODIFIERS.register("add_witchhat_to_witches", () -> CODEC);

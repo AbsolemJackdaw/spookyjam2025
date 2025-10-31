@@ -1,5 +1,6 @@
-package absolemjackdaw.blocks;
+package absolemjackdaw.scryers.blocks;
 
+import dev.upcraft.sparkweave.api.registry.block.BlockItemProvider;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.BlockGetter;
@@ -9,7 +10,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class BlockCrystalBall extends Block {
+public class BlockCrystalBall extends Block implements BlockItemProvider {
 
     private static final VoxelShape BALL = Block.box(4, 5, 4, 12, 13, 12);
     private static final VoxelShape FULL = Util.make(() -> {

@@ -1,4 +1,4 @@
-package absolemjackdaw.client.model;
+package absolemjackdaw.scryers.neoforge.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.resources.model.BakedModel;

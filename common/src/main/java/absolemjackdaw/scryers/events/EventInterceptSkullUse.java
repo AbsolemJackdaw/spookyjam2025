@@ -1,4 +1,4 @@
-package absolemjackdaw.events;
+package absolemjackdaw.scryers.events;
 
 public class EventInterceptSkullUse {
 }
