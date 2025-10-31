@@ -33,6 +33,10 @@ repositories {
         name = 'BlameJared'
         url = 'https://maven.blamejared.com'
     }
+    maven {
+        name = 'Up-Mods'
+        url = 'https://maven.uuid.gg/releases'
+    }
 }
 
 dependencies {

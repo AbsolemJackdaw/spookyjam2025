@@ -11,6 +11,8 @@ dependencies {
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+
+    modImplementation "dev.upcraft.sparkweave:Sparkweave-Fabric:${sparkweave_version}"
 }
 
 loom {

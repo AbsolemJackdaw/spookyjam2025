@@ -21,6 +21,8 @@ dependencies {
     compileOnly 'net.fabricmc:sponge-mixin:0.15.2+mixin.0.8.7'
     compileOnly 'io.github.llamalad7:mixinextras-common:0.5.0'
     annotationProcessor 'io.github.llamalad7:mixinextras-common:0.5.0'
+
+    compileOnly "dev.upcraft.sparkweave:Sparkweave-Common:${sparkweave_version}"
 }
 
 configurations {

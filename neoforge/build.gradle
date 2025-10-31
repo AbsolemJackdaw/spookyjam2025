@@ -41,6 +41,10 @@ neoForge {
     }
 }
 
+dependencies {
+    implementation "dev.upcraft.sparkweave:Sparkweave-NeoForge:${sparkweave_version}"
+}
+
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurseForge) {
