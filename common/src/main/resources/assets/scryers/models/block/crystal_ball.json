@@ -2,9 +2,9 @@
 	"format_version": "1.21.6",
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "crystal_ball",
-		"1": "cyrstal_bass_base",
-		"particle": "crystal_ball"
+		"0": "scryers:block/crystal_ball",
+		"1": "scryers:block/crystal_bass_base",
+		"particle": "scryers:block/crystal_ball"
 	},
 	"elements": [
 		{
