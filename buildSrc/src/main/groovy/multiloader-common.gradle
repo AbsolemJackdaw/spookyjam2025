@@ -119,13 +119,18 @@ processResources {
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
-            artifactId base.archivesName.get()
+            artifactId = base.archivesName.get()
             from components.java
         }
     }
-    repositories {
-        maven {
-            url System.getenv('local_maven_url')
+    var localMaven = providers.environmentVariable('local_maven_url')
+    if(localMaven.isPresent()) {
+        repositories {
+            maven {
+                name = "LocalUrl"
+                url = localMaven.get()
+            }
         }
     }
+
 }
