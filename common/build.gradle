@@ -22,6 +22,7 @@ dependencies {
     compileOnly 'io.github.llamalad7:mixinextras-common:0.5.0'
     annotationProcessor 'io.github.llamalad7:mixinextras-common:0.5.0'
 
+    compileOnly "mysticdrew:common-networking-common:${common_networking_version}"
     compileOnly "dev.upcraft.sparkweave:Sparkweave-Common:${sparkweave_version}"
 }
 

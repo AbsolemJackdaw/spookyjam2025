@@ -42,6 +42,7 @@ neoForge {
 }
 
 dependencies {
+    implementation "mysticdrew:common-networking-neoforge:${common_networking_version}"
     implementation "dev.upcraft.sparkweave:Sparkweave-NeoForge:${sparkweave_version}"
 }
 
@@ -61,4 +62,5 @@ tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurs
     mainFile.addGameVersion("neoforge")
 
     mainFile.addRequirement("sparkweave")
+    mainFile.addRequirement("common-network")
 }

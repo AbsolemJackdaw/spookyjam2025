@@ -12,6 +12,7 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
+    modImplementation "mysticdrew:common-networking-fabric:${common_networking_version}"
     modImplementation "dev.upcraft.sparkweave:Sparkweave-Fabric:${sparkweave_version}"
 }
 
@@ -50,4 +51,5 @@ tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurs
     mainFile.addGameVersion("fabric")
 
     mainFile.addRequirement("sparkweave")
+    mainFile.addRequirement("common-network")
 }

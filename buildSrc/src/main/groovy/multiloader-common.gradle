@@ -37,6 +37,10 @@ repositories {
         name = 'Up-Mods'
         url = 'https://maven.uuid.gg/releases'
     }
+    maven {
+        name = 'JourneyMap'
+        url = 'https://jm.gserv.me/repository/maven-public'
+    }
 }
 
 dependencies {
@@ -99,6 +103,7 @@ processResources {
             'neoforge_loader_version_range': neoforge_loader_version_range,
             'credits'                      : credits,
             'java_version'                 : java_version,
+            'common_networking_version'    : common_networking_version,
             'sparkweave_version'           : sparkweave_version
     ]
 
@@ -106,7 +111,7 @@ processResources {
         key, value -> [(key): value instanceof String ? value.replace("\n", "\\\\n") : value]
     }
 
-    filesMatching(['META-INF/mods.toml', 'META-INF/neoforge.mods.toml']) {
+    filesMatching(['META-INF/neoforge.mods.toml']) {
         expand expandProps
     }
 

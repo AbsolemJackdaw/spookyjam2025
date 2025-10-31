@@ -33,6 +33,13 @@ ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${mod_id}]]
+modId = "commonnetworking"
+type="required"
+versionRange = "[${common_networking_version},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${mod_id}]]
 modId = "sparkweave"
 type="required"
 versionRange = "[${sparkweave_version},)"

@@ -30,6 +30,7 @@
     "fabric-api": "*",
     "minecraft": "~${minecraft_version}",
     "java": ">=${java_version}",
+    "commonnetworking": ">=${common_networking_version}",
     "sparkweave": ">=${sparkweave_version}"
   },
   "suggests": {
