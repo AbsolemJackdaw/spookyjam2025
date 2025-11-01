@@ -2,6 +2,8 @@
   "block.scryers.crystal_ball": "Crystal Ball",
   "item.scryers.witch_hat": "Witch Hat",
   "itemGroup.scryers.items": "Scryers",
+  "container.scryers.crystal_ball": "Crystal Ball",
+  "gui.scryer.crystal_ball.teleport_target": "%s (%s)",
 
   "message.scryers.invalid_target": "Invalid teleport target: %s",
   "message.scryers.invalid_screen": "You must use the crystal ball!",

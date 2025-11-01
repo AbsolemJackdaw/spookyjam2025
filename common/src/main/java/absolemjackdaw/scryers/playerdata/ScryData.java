@@ -81,15 +81,19 @@ public record ScryData(Map<ResourceKey<Level>, TeleportTarget> visitedDimensions
             return new Client(this.dimension(), asBlockPos, this.timestamp());
         }
 
+        public Component dimensionName() {
+            return formatDimension(dimension());
+        }
+
         public void teleportPlayer(ServerPlayer player) {
             if (player.level().dimension() == this.dimension()) {
-                Scryers.sendErrorMessage(player, Component.translatable("message.scryers.same_dimension", this.dimension()));
+                Scryers.sendErrorMessage(player, Component.translatable("message.scryers.same_dimension", this.dimensionName()));
                 return;
             }
 
             var targetLevel = player.server.getLevel(this.dimension());
             if (targetLevel == null) {
-                Scryers.sendErrorMessage(player, Component.translatable("message.scryers.no_target_level", this.dimension()));
+                Scryers.sendErrorMessage(player, Component.translatable("message.scryers.no_target_level", this.dimensionName()));
                 return;
             }
 
@@ -116,6 +120,14 @@ public record ScryData(Map<ResourceKey<Level>, TeleportTarget> visitedDimensions
 
                     Client::new
             );
+
+            public Component dimensionName() {
+                return TeleportTarget.formatDimension(dimension());
+            }
+        }
+
+        private static Component formatDimension(ResourceKey<Level> dimension) {
+            return Component.literal(dimension.location().toString());
         }
     }
 }

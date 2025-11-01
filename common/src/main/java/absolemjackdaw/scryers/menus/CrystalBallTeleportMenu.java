@@ -3,20 +3,18 @@ package absolemjackdaw.scryers.menus;
 import absolemjackdaw.scryers.init.ScryersBlocks;
 import absolemjackdaw.scryers.init.ScryersMenus;
 import absolemjackdaw.scryers.playerdata.ScryData;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class CrystalBallTeleportMenu extends AbstractContainerMenu {
@@ -28,6 +26,10 @@ public class CrystalBallTeleportMenu extends AbstractContainerMenu {
         super(ScryersMenus.TELEPORT_MENU.get(), containerId);
         this.access = access;
         this.data = data;
+    }
+
+    public List<ScryData.TeleportTarget.Client> getTargets() {
+        return this.data.targets();
     }
 
     @Override
@@ -44,15 +46,20 @@ public class CrystalBallTeleportMenu extends AbstractContainerMenu {
         return state.is(ScryersBlocks.CRYSTAL_BALL.get());
     }
 
-    public record MenuData(List<Pair<ResourceKey<Level>, ScryData.TeleportTarget.Client>> targets) {
+    public record MenuData(List<ScryData.TeleportTarget.Client> targets) {
         public static final StreamCodec<FriendlyByteBuf, MenuData> STREAM_CODEC = ScryData.TeleportTarget.Client.STREAM_CODEC
-                .map(target -> Pair.of(target.dimension(), target), Pair::getSecond)
                 .apply(ByteBufCodecs.list())
-                .map(MenuData::new, MenuData::targets);;
+                .map(MenuData::new, MenuData::targets);
     }
 
     public static MenuData getDataFor(ServerPlayer player) {
-        // FIXME implement
-        return new MenuData(List.of());
+        var targets = ScryData.getFor(player).visitedDimensions()
+                .values()
+                .stream()
+                .filter(target -> target.dimension() != player.level().dimension())
+                .sorted(Comparator.comparing(ScryData.TeleportTarget::timestamp))
+                .map(ScryData.TeleportTarget::toClientValue)
+                .toList();
+        return new MenuData(targets);
     }
 }
