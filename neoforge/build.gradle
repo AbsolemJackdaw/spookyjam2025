@@ -1,7 +1,7 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
-    id 'net.darkhax.curseforgegradle' version '1.0.11'
+    id 'net.darkhax.curseforgegradle'
 }
 
 neoForge {
@@ -49,7 +49,7 @@ dependencies {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurseForge) {
-
+    dependsOn(jar)
     apiToken = findProperty('cf_api_token')
     // The main file to upload
     def mainFile = upload(1373587, jar)
