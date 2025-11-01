@@ -3,6 +3,21 @@ plugins {
     id 'fabric-loom'
     id 'net.darkhax.curseforgegradle' version '1.0.11'
 }
+
+repositories {
+    exclusiveContent {
+        forRepositories(
+            maven {
+                name = 'Ladysnake'
+                url = 'https://maven.ladysnake.org/releases'
+            }
+        )
+        filter {
+            includeGroupAndSubgroups('org.ladysnake')
+        }
+    }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered {
@@ -14,6 +29,9 @@ dependencies {
 
     modImplementation "mysticdrew:common-networking-fabric:${common_networking_version}"
     modImplementation "dev.upcraft.sparkweave:Sparkweave-Fabric:${sparkweave_version}"
+
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${project.cardinal_components_api_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${project.cardinal_components_api_version}"
 }
 
 loom {
@@ -50,6 +68,7 @@ tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurs
     mainFile.addGameVersion("${minecraft_version}")
     mainFile.addGameVersion("fabric")
 
-    mainFile.addRequirement("sparkweave")
+    mainFile.addRequirement("cardinal-components-api")
     mainFile.addRequirement("common-network")
+    mainFile.addRequirement("sparkweave")
 }

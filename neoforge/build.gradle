@@ -61,6 +61,6 @@ tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurs
     mainFile.addGameVersion("${minecraft_version}")
     mainFile.addGameVersion("neoforge")
 
-    mainFile.addRequirement("sparkweave")
     mainFile.addRequirement("common-network")
+    mainFile.addRequirement("sparkweave")
 }
