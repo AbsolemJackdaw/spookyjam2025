@@ -1,5 +1,10 @@
 {
   "block.scryers.crystal_ball": "Crystal Ball",
   "item.scryers.witch_hat": "Witch Hat",
-  "itemGroup.scryers.items": "Scryers"
+  "itemGroup.scryers.items": "Scryers",
+
+  "message.scryers.invalid_target": "Invalid teleport target: %s",
+  "message.scryers.invalid_screen": "You must use the crystal ball!",
+  "message.scryers.same_dimension": "You are already in the %s dimension!",
+  "message.scryers.no_target_level": "Could not find or load dimension %s!"
 }

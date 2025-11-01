@@ -1,4 +1,4 @@
-package absolemjackdaw.scryers.neoforge;
+package absolemjackdaw.scryers.neoforge.client;
 
 import absolemjackdaw.scryers.Scryers;
 import absolemjackdaw.scryers.init.ScryersItems;
@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.event.ModelEvent;
 
 
 @EventBusSubscriber(Dist.CLIENT)
-public class ScryersClient {
+public class ScryersNeoForgeClient {
 
     private static final ModelResourceLocation WITCHHAT_HEAD_MODEL = ModelResourceLocation.standalone(Scryers.id("witchhat_model"));
 
