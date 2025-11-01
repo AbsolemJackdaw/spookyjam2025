@@ -83,7 +83,7 @@ public class CrystalBallTeleportScreen extends AbstractContainerScreen<CrystalBa
         float centerX = (x2 - x1 + this.leftMargin) / 2.0F;
         float centerY = (y2 - y1 + this.topMargin) / 2.0F;
 
-        guiGraphics.fill((int) (centerX - 2), (int) (centerY - 2), (int) (centerX + 2), (int) (centerY + 2), 0xFFFFFFFF);
+//        guiGraphics.fill((int) (centerX - 2), (int) (centerY - 2), (int) (centerX + 2), (int) (centerY + 2), 0xFFFFFFFF);
 
 
         guiGraphics.drawString(this.font, this.title, this.titleLabelX, this.titleLabelY, 0x404040, false);
@@ -104,16 +104,5 @@ public class CrystalBallTeleportScreen extends AbstractContainerScreen<CrystalBa
         var y2 = this.topPos + this.imageHeight - bottomMargin;
 
         guiGraphics.fillRenderType(RenderType.endPortal(), x1, y1, x2, y2, 0);
-    }
-
-    @Override
-    public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        super.render(guiGraphics, mouseX, mouseY, partialTick);
-
-        // TODO button hover style
-//        Style style = this.getComponentStyleAt((double)mouseX, (double)mouseY);
-//        if (style != null && style.getHoverEvent() != null) {
-//            guiGraphics.renderComponentHoverEffect(this.font, style, mouseX, mouseY);
-//        }
     }
 }
