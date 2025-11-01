@@ -1,7 +1,9 @@
 package absolemjackdaw.scryers.fabric.service;
 
 import absolemjackdaw.scryers.blocks.CrystalBallBlock;
+import absolemjackdaw.scryers.fabric.init.ScryersComponents;
 import absolemjackdaw.scryers.menus.CrystalBallTeleportMenu;
+import absolemjackdaw.scryers.playerdata.ScryData;
 import absolemjackdaw.scryers.service.ScryersPlatformService;
 import com.google.auto.service.AutoService;
 import net.fabricmc.fabric.api.entity.FakePlayer;
@@ -50,5 +52,15 @@ public class ScryersPlatformServiceFabric implements ScryersPlatformService {
     @Override
     public boolean isFakePlayer(Player player) {
         return player instanceof FakePlayer;
+    }
+
+    @Override
+    public ScryData getScryData(ServerPlayer player) {
+        return player.getComponent(ScryersComponents.SCRY_DATA).getData();
+    }
+
+    @Override
+    public void setScryData(ServerPlayer player, ScryData data) {
+        player.getComponent(ScryersComponents.SCRY_DATA).setData(data);
     }
 }

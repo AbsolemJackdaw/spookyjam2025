@@ -1,6 +1,8 @@
 package absolemjackdaw.scryers.playerdata;
 
 import absolemjackdaw.scryers.Scryers;
+import absolemjackdaw.scryers.service.ScryersPlatformService;
+import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
@@ -21,30 +23,42 @@ import net.minecraft.world.phys.Vec3;
 import java.time.Instant;
 import java.util.*;
 
-public class ScryData {
+public record ScryData(Map<ResourceKey<Level>, TeleportTarget> visitedDimensions) {
 
-    private final Map<ResourceKey<Level>, TeleportTarget> VISITED_DIMENSIONS = new HashMap<>();
-    private final Map<ResourceKey<Level>, TeleportTarget> VISITED_DIMENSIONS_VIEW = Collections.unmodifiableMap(VISITED_DIMENSIONS);
+    private static final ScryData EMPTY = new ScryData(Map.of());
+
+    public static ScryData empty() {
+        return EMPTY;
+    }
+
+    public static final Codec<ScryData> CODEC = Codec.unboundedMap(Level.RESOURCE_KEY_CODEC, TeleportTarget.CODEC).xmap(ScryData::new, ScryData::visitedDimensions);
 
     public static ScryData getFor(ServerPlayer player) {
-        // TODO implement
-        return null;
+        return ScryersPlatformService.SERVICE.getScryData(player);
+    }
+
+    public void save(ServerPlayer player) {
+        ScryersPlatformService.SERVICE.setScryData(player, this);
     }
 
     public Optional<TeleportTarget> findTargetMatching(ResourceKey<Level> target) {
-        return Optional.ofNullable(VISITED_DIMENSIONS.get(target));
+        return Optional.ofNullable(visitedDimensions().get(target));
     }
 
-    public void visitDimension(ServerPlayer player, Instant time) {
+    public static void visitDimension(ServerPlayer player, Instant time) {
         var dimension = player.level().dimension();
         var pos = player.position();
         var pitch = player.getXRot();
         var yaw = player.getYHeadRot();
-        VISITED_DIMENSIONS.put(dimension, new TeleportTarget(dimension, pos, pitch, yaw, time));
-    }
 
-    public Map<ResourceKey<Level>, TeleportTarget> getVisitedDimenions() {
-        return VISITED_DIMENSIONS_VIEW;
+        var original = ScryData.getFor(player);
+        Map<ResourceKey<Level>, TeleportTarget> dimensions = ImmutableMap.<ResourceKey<Level>, TeleportTarget>builder()
+                .putAll(original.visitedDimensions())
+                .put(dimension, new TeleportTarget(dimension, pos, pitch, yaw, time))
+                        .buildKeepingLast();
+
+        var value = new ScryData(dimensions);
+        value.save(player);
     }
 
     public record TeleportTarget(ResourceKey<Level> dimension, Vec3 position, float pitch, float yaw,

@@ -1,6 +1,7 @@
 package absolemjackdaw.scryers.service;
 
 import absolemjackdaw.scryers.menus.CrystalBallTeleportMenu;
+import absolemjackdaw.scryers.playerdata.ScryData;
 import dev.upcraft.sparkweave.api.platform.Services;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
@@ -16,4 +17,8 @@ public interface ScryersPlatformService {
     void openTeleportMenu(ServerPlayer serverPlayer, CrystalBallTeleportMenu.MenuData data, ContainerLevelAccess containerLevelAccess);
 
     boolean isFakePlayer(Player player);
+
+    ScryData getScryData(ServerPlayer player);
+
+    void setScryData(ServerPlayer player, ScryData data);
 }

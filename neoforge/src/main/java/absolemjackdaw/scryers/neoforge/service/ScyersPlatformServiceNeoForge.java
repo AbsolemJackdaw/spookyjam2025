@@ -2,6 +2,8 @@ package absolemjackdaw.scryers.neoforge.service;
 
 import absolemjackdaw.scryers.blocks.CrystalBallBlock;
 import absolemjackdaw.scryers.menus.CrystalBallTeleportMenu;
+import absolemjackdaw.scryers.neoforge.init.ScryersAttachmentTypes;
+import absolemjackdaw.scryers.playerdata.ScryData;
 import absolemjackdaw.scryers.service.ScryersPlatformService;
 import com.google.auto.service.AutoService;
 import com.google.common.base.Preconditions;
@@ -52,4 +54,15 @@ public class ScyersPlatformServiceNeoForge implements ScryersPlatformService {
     public boolean isFakePlayer(Player player) {
         return player.isFakePlayer();
     }
+
+    @Override
+    public ScryData getScryData(ServerPlayer player) {
+        return player.getData(ScryersAttachmentTypes.SCRY_PLAYER_DATA.get());
+    }
+
+    @Override
+    public void setScryData(ServerPlayer player, ScryData data) {
+        player.setData(ScryersAttachmentTypes.SCRY_PLAYER_DATA.get(), data);
+    }
+
 }
