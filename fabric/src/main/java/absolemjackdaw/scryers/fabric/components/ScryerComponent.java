@@ -28,7 +28,7 @@ public class ScryerComponent implements Component {
     public void readFromNbt(CompoundTag compoundTag, HolderLookup.Provider provider) {
         var ops = RegistryOps.create(NbtOps.INSTANCE, provider);
         if(compoundTag.contains("data", Tag.TAG_COMPOUND)) {
-            data = ScryData.CODEC.decode(ops, compoundTag.getCompound("scryer_data"))
+            data = ScryData.CODEC.decode(ops, compoundTag.getCompound("data"))
                     .resultOrPartial(err -> LOGGER.error("Unable to decode component data: {}", err))
                     .map(Pair::getFirst)
                     .orElseGet(ScryData::empty);
