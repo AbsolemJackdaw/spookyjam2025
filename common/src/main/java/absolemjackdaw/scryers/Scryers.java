@@ -1,5 +1,6 @@
 package absolemjackdaw.scryers;
 
+import absolemjackdaw.scryers.data.ScryerTags;
 import absolemjackdaw.scryers.init.ScryersBlocks;
 import absolemjackdaw.scryers.init.ScryersItems;
 import absolemjackdaw.scryers.init.ScryersMenus;
@@ -14,23 +15,41 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.AbstractSkullBlock;
 import net.minecraft.world.level.block.SkullBlock;
+
+import java.util.Optional;
 
 @AutoService(MainEntryPoint.class)
 public class Scryers implements MainEntryPoint {
     public static final String MODID = "scryers";
 
-    public static SkullBlock.Type getWitchType(Player p) {
-        if (isWitch(p) && p.getOffhandItem().getItem() instanceof BlockItem item && item.getBlock() instanceof AbstractSkullBlock block)
-            return block.getType();
-        return () -> "empty";
+    public static Optional<SkullBlock.Type> getWitchType(LivingEntity entity) {
+        if(hasWitchHat(entity)) {
+            if(entity.getMainHandItem().getItem() instanceof BlockItem item && item.getBlock() instanceof AbstractSkullBlock block) {
+                return Optional.of(block.getType());
+            }
+            else if(entity.getOffhandItem().getItem() instanceof BlockItem item && item.getBlock() instanceof AbstractSkullBlock block) {
+                return Optional.of(block.getType());
+            }
+        }
+
+        return Optional.empty();
     }
 
-    public static boolean isWitch(Player player) {
-        return player.isHolding(itemStack -> itemStack.getItem() instanceof BlockItem blockItem && blockItem.getBlock() instanceof AbstractSkullBlock) && player.getItemBySlot(EquipmentSlot.HEAD).is(ScryersItems.WITCH_HAT.get());
+    public static boolean hasWitchHat(LivingEntity entity) {
+        return entity.getItemBySlot(EquipmentSlot.HEAD).is(ScryerTags.Items.WITCH_HATS);
+    }
+
+    public static boolean hasSkull(LivingEntity entity, ItemStack stack) {
+        return stack.is(ScryerTags.Items.SKULLS);
+    }
+
+    public static boolean isWitch(LivingEntity entity) {
+        return hasWitchHat(entity) && entity.isHolding(itemStack -> hasSkull(entity, itemStack));
     }
 
     public static ResourceLocation id(String path) {
