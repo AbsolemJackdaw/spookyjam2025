@@ -1,4 +1,4 @@
-package absolemjackdaw.scryers.render;
+package absolemjackdaw.scryers.client.render;
 
 import absolemjackdaw.scryers.Scryers;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -24,14 +24,14 @@ public class SkullLayer<T extends LivingEntity, M extends EntityModel<T>> extend
         }
 
         double bodyRot = Math.toRadians((entity.yBodyRot % 360) + 360) % 360;
-        double armOffset = entity.getMainArm() == HumanoidArm.RIGHT ? -1 : 1;
 
-        addParticles(entity, bodyRot, armOffset, InteractionHand.MAIN_HAND);
-        addParticles(entity, bodyRot, armOffset, InteractionHand.OFF_HAND);
+        addParticles(entity, bodyRot, InteractionHand.MAIN_HAND);
+        addParticles(entity, bodyRot, InteractionHand.OFF_HAND);
     }
 
-    private void addParticles(T entity, double bodyRot, double armOffset, InteractionHand hand) {
+    private void addParticles(T entity, double bodyRot, InteractionHand hand) {
         if(entity.getRandom().nextFloat() < 0.05F && Scryers.hasSkull(entity, entity.getItemInHand(hand))) {
+            double armOffset = (entity.getMainArm() == HumanoidArm.RIGHT) != (hand == InteractionHand.OFF_HAND) ? -1 : 1;
             double baseX = (0.4 * armOffset) + (entity.getRandom().nextDouble() * 0.20 - 0.1);
             double baseZ = 0.4 + (entity.getRandom().nextDouble() * 0.20 - 0.1);
 
