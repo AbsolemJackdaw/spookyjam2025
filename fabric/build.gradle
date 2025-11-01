@@ -60,7 +60,7 @@ tasks.register('publishCurseForge', net.darkhax.curseforgegradle.TaskPublishCurs
     apiToken = findProperty('cf_api_token')
     // The main file to upload
     def mainFile = upload(1373587, remapJar)
-//    def mainFile = upload(532595, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    mainFile.withAdditionalFile(remapSourcesJar)
     mainFile.displayName = "Scryers-fabric-${minecraft_version}-${version}"
     mainFile.releaseType = "${releasetype}"
     mainFile.changelog = "${changelog}"
