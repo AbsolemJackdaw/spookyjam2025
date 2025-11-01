@@ -3,7 +3,7 @@ package absolemjackdaw.scryers.neoforge.client;
 import absolemjackdaw.scryers.Scryers;
 import absolemjackdaw.scryers.init.ScryersItems;
 import absolemjackdaw.scryers.neoforge.client.model.HatModelWrapper;
-import absolemjackdaw.scryers.render.SkullLayer;
+import absolemjackdaw.scryers.client.render.SkullLayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -22,7 +22,7 @@ import java.util.Random;
 @EventBusSubscriber(Dist.CLIENT)
 public class ScryersNeoForgeClient {
 
-    private static final ModelResourceLocation WITCHHAT_HEAD_MODEL = ModelResourceLocation.standalone(Scryers.id("witchhat_model"));
+    private static final ModelResourceLocation WITCHHAT_HEAD_MODEL = ModelResourceLocation.standalone(Scryers.id("witch_hat_head"));
 
     @SubscribeEvent
     public static void registerExtraModels(ModelEvent.RegisterAdditional event) {

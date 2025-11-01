@@ -18,6 +18,9 @@
     "main": [
       "absolemjackdaw.scryers.fabric.ScryersFabric"
     ],
+    "client": [
+      "absolemjackdaw.scryers.fabric.client.ScryersFabricClient"
+    ],
     "cardinal-components": [
       "absolemjackdaw.scryers.fabric.init.ScryersComponents"
     ]
