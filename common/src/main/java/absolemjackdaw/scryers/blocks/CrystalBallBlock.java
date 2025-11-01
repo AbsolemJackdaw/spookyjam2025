@@ -50,7 +50,7 @@ public class CrystalBallBlock extends Block implements BlockItemProvider {
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
-        if(!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
+        if(!level.isClientSide() && player instanceof ServerPlayer serverPlayer && !serverPlayer.isSpectator()) {
             ScryersPlatformService.SERVICE.openTeleportMenu(serverPlayer, CrystalBallTeleportMenu.getDataFor(serverPlayer), ContainerLevelAccess.create(level, pos));
         }
 

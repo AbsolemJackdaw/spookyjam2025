@@ -1,6 +1,7 @@
 package absolemjackdaw.scryers.playerdata;
 
 import absolemjackdaw.scryers.Scryers;
+import absolemjackdaw.scryers.events.VisitDimensionEvent;
 import absolemjackdaw.scryers.service.ScryersPlatformService;
 import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
@@ -19,22 +20,41 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Map;
+import java.util.Optional;
 
 public record ScryData(Map<ResourceKey<Level>, TeleportTarget> visitedDimensions) {
 
+    public static final Codec<ScryData> CODEC = Codec.unboundedMap(Level.RESOURCE_KEY_CODEC, TeleportTarget.CODEC).xmap(ScryData::new, ScryData::visitedDimensions);
     private static final ScryData EMPTY = new ScryData(Map.of());
 
     public static ScryData empty() {
         return EMPTY;
     }
 
-    public static final Codec<ScryData> CODEC = Codec.unboundedMap(Level.RESOURCE_KEY_CODEC, TeleportTarget.CODEC).xmap(ScryData::new, ScryData::visitedDimensions);
-
     public static ScryData getFor(ServerPlayer player) {
         return ScryersPlatformService.SERVICE.getScryData(player);
+    }
+
+    public static void onVisitDimension(ResourceKey<Level> dimension, ServerPlayer player) {
+        onVisitDimension(player, new TeleportTarget(dimension, player.position(), player.getXRot(), player.getYHeadRot(), Instant.now()));
+    }
+
+    public static void onVisitDimension(ServerPlayer player, TeleportTarget newEntry) {
+        var data = ScryData.getFor(player);
+        @Nullable var modified = VisitDimensionEvent.EVENT.invoker().onVisitDimension(player, data, newEntry);
+        if (modified != null) {
+            Map<ResourceKey<Level>, TeleportTarget> dimensions = ImmutableMap.<ResourceKey<Level>, TeleportTarget>builder()
+                    .putAll(data.visitedDimensions())
+                    .put(modified.dimension(), modified)
+                    .buildKeepingLast();
+
+            var value = new ScryData(dimensions);
+            value.save(player);
+        }
     }
 
     public void save(ServerPlayer player) {
@@ -43,22 +63,6 @@ public record ScryData(Map<ResourceKey<Level>, TeleportTarget> visitedDimensions
 
     public Optional<TeleportTarget> findTargetMatching(ResourceKey<Level> target) {
         return Optional.ofNullable(visitedDimensions().get(target));
-    }
-
-    public static void visitDimension(ServerPlayer player, Instant time) {
-        var dimension = player.level().dimension();
-        var pos = player.position();
-        var pitch = player.getXRot();
-        var yaw = player.getYHeadRot();
-
-        var original = ScryData.getFor(player);
-        Map<ResourceKey<Level>, TeleportTarget> dimensions = ImmutableMap.<ResourceKey<Level>, TeleportTarget>builder()
-                .putAll(original.visitedDimensions())
-                .put(dimension, new TeleportTarget(dimension, pos, pitch, yaw, time))
-                        .buildKeepingLast();
-
-        var value = new ScryData(dimensions);
-        value.save(player);
     }
 
     public record TeleportTarget(ResourceKey<Level> dimension, Vec3 position, float pitch, float yaw,
@@ -78,13 +82,13 @@ public record ScryData(Map<ResourceKey<Level>, TeleportTarget> visitedDimensions
         }
 
         public void teleportPlayer(ServerPlayer player) {
-            if(player.level().dimension() == this.dimension()) {
+            if (player.level().dimension() == this.dimension()) {
                 Scryers.sendErrorMessage(player, Component.translatable("message.scryers.same_dimension", this.dimension()));
                 return;
             }
 
             var targetLevel = player.server.getLevel(this.dimension());
-            if(targetLevel == null) {
+            if (targetLevel == null) {
                 Scryers.sendErrorMessage(player, Component.translatable("message.scryers.no_target_level", this.dimension()));
                 return;
             }
