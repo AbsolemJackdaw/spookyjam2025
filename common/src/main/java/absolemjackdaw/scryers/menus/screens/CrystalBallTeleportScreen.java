@@ -67,9 +67,9 @@ public class CrystalBallTeleportScreen extends AbstractContainerScreen<CrystalBa
             var x0 = Mth.cos(angle) * distance;
             var y0 = Mth.sin(angle) * distance;
 
-            addRenderableWidget(Button.builder(Component.empty(), button -> {
+            addRenderableWidget(WorldButton.make(Component.empty(), button -> {
                 Network.getNetworkHandler().sendToServer(new SelectTeleportTargetPacket(target.dimension()));
-            }).tooltip(Tooltip.create(Component.translatable("gui.scryer.crystal_ball.teleport_target", target.dimensionName(), formattedTimeSince))).pos((int) (centerX + x0) - 2, (int) (centerY + y0) - 2).size(4, 4).build());
+            }).tooltip(Tooltip.create(Component.translatable("gui.scryer.crystal_ball.teleport_target", target.dimensionName(), formattedTimeSince))).pos((int) (centerX + x0) - 2, (int) (centerY + y0) - 2).size(10, 10).build());
         }
     }
 
