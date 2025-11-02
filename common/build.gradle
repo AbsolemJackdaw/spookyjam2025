@@ -17,10 +17,15 @@ neoForge {
 }
 
 dependencies {
-    compileOnly(platform("net.neoforged:minecraft-dependencies:${minecraft_version}"))
-    compileOnly 'net.fabricmc:sponge-mixin:0.15.2+mixin.0.8.7'
+
     compileOnly 'io.github.llamalad7:mixinextras-common:0.5.0'
     annotationProcessor 'io.github.llamalad7:mixinextras-common:0.5.0'
+
+    compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
+
+//    compileOnly(platform("net.neoforged:minecraft-dependencies:${minecraft_version}"))
+//    compileOnly 'net.fabricmc:sponge-mixin:0.15.2+mixin.0.8.7'
+
 
     compileOnly "mysticdrew:common-networking-common:${common_networking_version}"
     compileOnly "dev.upcraft.sparkweave:Sparkweave-Common:${sparkweave_version}"
