@@ -124,6 +124,10 @@ public record ScryData(Map<ResourceKey<Level>, TeleportTarget> visitedDimensions
             public Component dimensionName() {
                 return TeleportTarget.formatDimension(dimension());
             }
+
+            public Component translationKey() {
+                return Component.translatableWithFallback(dimension().location().toLanguageKey("dimension"), dimension().location().toString());
+            }
         }
 
         private static Component formatDimension(ResourceKey<Level> dimension) {
